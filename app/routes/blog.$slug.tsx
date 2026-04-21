@@ -17,7 +17,7 @@ export default function Post() {
   const p = data[slug as keyof typeof data] || data["void-manifesto"];
 
   return (
-    <div className="mx-auto w-full max-w-2xl px-6 py-20">
+    <div className="mx-auto w-full max-w-2xl px-6 pt-40 md:pt-48 pb-20">
       <Link to="/blog" className="text-sm text-zinc-500 hover:text-zinc-300">
         ← Kembali
       </Link>
@@ -25,7 +25,7 @@ export default function Post() {
       <h1 className="mt-8 text-3xl md:text-4xl font-medium leading-tight tracking-tight text-white">{p.title}</h1>
       <div className="mt-3 text-xs text-zinc-500 font-mono">{p.date}</div>
 
-      <div className="mt-8 space-y-6 text- leading-8 text-zinc-300">
+      <div className="mt-8 space-y-6 leading-8 text-zinc-300">
         {p.body.split("\n\n").map((para, i) => (
           <p key={i}>{para}</p>
         ))}

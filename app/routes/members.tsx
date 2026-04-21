@@ -45,9 +45,11 @@ const members = [
   },
 ];
 
+export const meta = () => [{ title: "Members — Supervoid Society" }];
+
 export default function Members() {
   return (
-    <div className="mx-auto w-full max-w-2xl px-6 py-20">
+    <div className="mx-auto w-full max-w-2xl px-6 pt-40 md:pt-48 pb-20">
       <h1 className="text-3xl font-medium tracking-tight text-white">Members</h1>
 
       <div className="mt-10 border-t border-zinc-800">
@@ -57,7 +59,7 @@ export default function Members() {
               <div className="flex items-center gap-3">
                 <img src={m.avatar} alt="" className="h-9 w-9 rounded-full object-cover" />
                 <div>
-                  <div className="text- text-zinc-100">{m.name}</div>
+                  <div className="text-zinc-100">{m.name}</div>
                   <div className="mt-0.5 text-sm leading-snug text-zinc-500">{m.role}</div>
                 </div>
               </div>

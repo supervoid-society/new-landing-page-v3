@@ -3,6 +3,16 @@ import { getAuth } from "~/lib/auth/auth.server";
 import type { Route } from "./+types/root";
 import "./tailwind.css";
 
+export const meta = () => {
+  return [
+    { title: "Supervoid Society — Absolute Nothingness" },
+    { name: "description", content: "Komunitas builder Web, Android, Security, AI. Kurangi, bukan tambah." },
+    { property: "og:title", content: "Supervoid Society" },
+    { property: "og:description", content: "Absolute nothingness." },
+    { name: "theme-color", content: "#09090b" },
+  ];
+};
+
 export async function loader({ request, context }: Route.LoaderArgs) {
   const session = await getAuth(context).api.getSession({ headers: request.headers }).catch(() => null);
   return { user: session?.user?? null };

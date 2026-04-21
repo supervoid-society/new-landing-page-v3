@@ -1,3 +1,5 @@
+export const meta = () => [{ title: "About — Supervoid Society" }];
+
 export default function About() {
   return (
     <main className="max-w- mx-auto px-6 lg:px-8 py-32">
