@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS posts (
   body TEXT NOT NULL,
   author_id TEXT,
   published_at TEXT,
-  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+  updated_at TEXT DEFAULT CURRENT_TIMESTAMP,
 );
