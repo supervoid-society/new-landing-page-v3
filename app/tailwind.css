@@ -1,0 +1,16 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Outfit", system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+}
+
+/* Base OLED — bukan #000 */
+html {
+  background-color: #09090b;
+}
+body {
+  background-color: #09090b;
+  color: rgb(244 244 245);
+  -webkit-font-smoothing: antialiased;
+}
