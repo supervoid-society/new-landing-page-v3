@@ -1,0 +1,10 @@
+CREATE TABLE IF NOT EXISTS posts (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  slug TEXT UNIQUE NOT NULL,
+  title TEXT NOT NULL,
+  excerpt TEXT,
+  body TEXT NOT NULL,
+  author_id TEXT,
+  published_at TEXT,
+  created_at TEXT DEFAULT CURRENT_TIMESTAMP
+);

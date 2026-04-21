@@ -4,10 +4,34 @@ import { D1Dialect } from "kysely-d1";
 import { createAuthMiddleware } from "better-auth/api";
 import type { AppLoadContext } from "react-router";
 
+interface Env {
+  D1: D1Database;
+  BETTER_AUTH_API_KEY: string;
+  BETTER_AUTH_URL: string;
+  GITHUB_CLIENT_ID: string;
+  GITHUB_CLIENT_SECRET: string;
+  GITHUB_ORG: string;
+}
+
+// cache biar tidak bikin Kysely baru tiap request (ini penyebab crash di Windows)
+const authCache = new WeakMap<D1Database, any>();
+
 export function getAuth(ctx: AppLoadContext): any {
   const env = ctx.cloudflare.env as Env;
 
-  return betterAuth({
+  if (!env.D1) {
+    throw new Error("D1 binding 'D1' tidak ditemukan di wrangler.json");
+  }
+  if (!env.BETTER_AUTH_API_KEY || env.BETTER_AUTH_API_KEY.length < 32) {
+    throw new Error("BETTER_AUTH_API_KEY harus minimal 32 karakter - cek .dev.vars");
+  }
+
+  // pakai cache
+  if (authCache.has(env.D1)) {
+    return authCache.get(env.D1);
+  }
+
+  const auth = betterAuth({
     database: {
       db: new Kysely({
         dialect: new D1Dialect({ database: env.D1 }),
@@ -41,7 +65,6 @@ export function getAuth(ctx: AppLoadContext): any {
                   where: [{ field: "userId", value: session.user.id }],
                 });
 
-                // fix TS2322: pakai try/catch dengan tipe jelas
                 let orgs: { login: string }[] = [];
                 try {
                   const res = await fetch("https://api.github.com/user/orgs", {
@@ -73,4 +96,7 @@ export function getAuth(ctx: AppLoadContext): any {
       },
     ],
   });
+
+  authCache.set(env.D1, auth);
+  return auth;
 }
