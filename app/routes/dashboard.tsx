@@ -10,8 +10,8 @@ export async function loader({ request, context }: Route.LoaderArgs) {
 
 export default function DashboardLayout() {
   return (
-    <div className="min-h-dvh bg-[#09090b] pt-28">
-      <div className="mx-auto w-full max-w-3xl px-6 pb-24">
+    <div className="min-h-dvh bg-[#09090b]">
+      <div className="mx-auto w-full max-w-5xl px-6 pt-40 md:pt-48 pb-24">
         <Outlet />
       </div>
     </div>

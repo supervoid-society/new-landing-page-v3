@@ -14,7 +14,6 @@
     "paths": { "~/*": ["./app/*"] },
     "types": ["vite/client", "@cloudflare/workers-types"],
     "allowImportingTsExtensions": true,
-    "ignoreDeprecations": "6.0"
   },
   "include": ["app", "db", "workers", ".react-router"]
 }

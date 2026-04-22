@@ -1,5 +1,6 @@
 import { Link, useLoaderData, Form } from "react-router";
 import { getAuth } from "~/lib/auth/auth.server";
+import { authClient } from "~/lib/auth/auth-client"; // <-- tambah ini
 
 export async function loader({ request, context }: any) {
   const auth = getAuth(context);
@@ -26,18 +27,18 @@ export default function Dashboard() {
   const { posts } = useLoaderData<typeof loader>();
 
   return (
-    <div className="mx-auto w-full max-w-5xl px-6 pt-40 md:pt-48 pb-20">
+    <>
       <div className="flex items-center justify-between mb-8">
         <h1 className="text-2xl font-medium text-white">Posts</h1>
         <div className="flex items-center gap-3">
-          <Form method="post" action="/api/auth/sign-out">
-            <button
-              type="submit"
-              className="rounded-full border border-zinc-700 px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors"
-            >
-              Logout
-            </button>
-          </Form>
+          <button
+            onClick={() => authClient.signOut({ 
+              fetchOptions: { onSuccess: () => window.location.href = "/" } 
+            })}
+            className="rounded-full border border-zinc-700 px-4 py-2 text-sm text-zinc-300 hover:bg-zinc-900 hover:text-white transition-colors"
+          >
+            Logout
+          </button>
           <Link
             to="/dashboard/new"
             className="rounded-full bg-white px-4 py-2 text-sm font-medium text-black hover:bg-zinc-200"
@@ -68,6 +69,6 @@ export default function Dashboard() {
           ))
         )}
       </div>
-    </div>
+    </>
   );
 }
